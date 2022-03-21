@@ -118,35 +118,6 @@
 
 
 
-
-
-
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-app.js"></script>
-
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-            https://firebase.google.com/docs/web/setup#available-libraries -->
-    <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-analytics.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-firestore.js"></script>
-
-    <script>
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        var firebaseConfig = {
-            apiKey: "AIzaSyCfbbkDg-Nti1vXg2JBEfQjoMlwMJWhJwQ",
-            authDomain: "yff-database-2.firebaseapp.com",
-            projectId: "yff-database-2",
-            storageBucket: "yff-database-2.appspot.com",
-            messagingSenderId: "513929686012",
-            appId: "1:513929686012:web:fbb88a2a7ffab7e4fee079",
-            measurementId: "G-N63SX1EYC3"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        firebase.analytics();
-        let db = firebase.firestore();
-
-    </script>
     <script>
 
         function myFunction() {
@@ -195,60 +166,6 @@
 
 
     </script>
-
-
-
-
-
-    <!--ignorer det som er under takk-->
-
-
-
-
-    <script>
-        let form = document.getElementById("form");
-        let tekst = document.getElementById("tekst");
-        let submit = document.getElementById("submit");
-        let selectedButton;
-
-        form.addEventListener("submit", (event) => {
-            event.preventDefault();
-
-            document.getElementsByName("stars").forEach(function (noe) {
-                if (noe.checked) {
-                    selectedButton = noe.value
-                };
-            })
-            let docDataReview = {
-                tekst: tekst.value,
-                rating: selectedButton
-            };
-            db.collection("rew").doc().set(docDataReview).then(() => {
-                console.log("document succesfully written!");
-                window.location.reload();
-            }).catch(err => console.log(err));
-        });
-
-        function hentData(doc) {
-            let html = document.createElement('li');
-            html.innerHTML += "Tilbakemelding: " + doc.data().tekst + ", Rating: " + doc.data().rating + "/ 5";
-            JSON.stringify(html);
-            let list = document.getElementById("liste");
-            list.appendChild(html);
-
-        }
-
-        db.collection("rew").get().then(snapshot => {
-            snapshot.docs.forEach(doc => {
-                hentData(doc)
-            });
-        }).catch(err => {
-            console.log(err);
-        })
-    </script>
-
-
-    <ul id="liste"></ul>
 
 
 </body>
