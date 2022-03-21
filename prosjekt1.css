@@ -1,0 +1,28 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+    background-color: rgb(29, 27, 27);
+}
+#kjøp, #fjern, #tlf, #lname, #fname, #e-post, #antall, #tekst, #submit, #ikke-valgt {
+  border-radius: 15px; 
+} 
+
+#demo1 {
+  background-color: transparent;
+  width: 150px;
+}
+.betaling {
+  border: 1px solid;
+  padding: 5px;
+  box-shadow: 5px 10px #888888;
+  width: 110px;
+  border-radius: 15px;
+}
+
+table, th, td {
+  border: 1px solid rgb(214, 209, 209);
+}
+
+th, td {
+  padding: 10px;
+}

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../Prosjekt/prosjekt1.css">
+    <title>Regissteringssystem</title>
+</head>
+
+<body>
+    <h1>Betaling av kinobiletter</h1>
+
+    <h2>Velg en film</h2>
+
+    <div class="betaling">
+        <select id="betaling">
+            <option value="ikke-valgt" id="ikke-valgt">Ikke valgt</option>
+            <option value="Star Wars">Star Wars</option>
+            <option value="Avengers"> The Avengers</option>
+            <option value="The marksman">The marksman</option>
+        </select>
+    </div>
+    <br>
+    <br>
+    <br>
+
+    <form name="myForm">
+        <div class="userinput">
+            <label for="ant">Antall</label> <br>
+            <input type="number" id="antall" size="5" min="1" max="20"> <label id="feilmelding_antall"></label>
+            <p id="feilmelding_antall"></p>
+
+            <label for="fornavn">Fornavn</label> <br>
+            <input type="text" id="fname" size="30"> <label id="feilmelding_fornavn"></label>
+            <p id="feilmelding_fornavn"></p>
+
+            <label for="etternavn">Etternavn</label> <br>
+            <input type="text" id="lname" size="30"> <label id="feilmelding_etternavn"></label>
+            <p id="feilmelding_etternavn"></p>
+
+            <label for="telefonummer">Telefonummer</label> <br>
+            <input type="text" id="tlf" size="30"> <label id="feilmelding_tlf"></label>
+            <p id="feilmelding_tlf"></p>
+
+            <label for="EPost">E-post</label> <br>
+            <input type="text" id="e-post" size="30"> <label id="feilmelding_e_post"></label>
+            <p id="feilmelding_e_post"></p>
+        </div>
+    </form>
+
+<p></p>
+
+
+    <button onclick="KjøpBilletter()" id="kjøp">Kjøp biletter</button>
+    <br><br>
+
+    <button onclick="myFunction()" id="fjern">Fjern alle biletter</button>
+    <br><br>
+
+    <table id="myTable">
+        <tr>
+            <th>Film</th>
+            <th>Antall</th>
+            <th>Fornavn</th>
+            <th>Etternavn</th>
+            <th>Telefonummer</th>
+            <th>E-post</th>
+        </tr>
+    </table>
+
+
+
+    <!-- ting jeg trenger her på denne nettsiden
+     få firebase til å funke
+
+      -->
+
+    <p id="demo"></p>
+    <p id="demo1"></p>
+
+    <div class="break">
+        <br>
+        <br>
+        <br>
+    </div>
+
+
+
+
+
+
+
+    <p>ignorer det som er under takk</p>
+
+
+
+
+
+
+    <form id="form">
+        <input name="stars" id="1" type="radio" value="1">
+        <input name="stars" id="2" type="radio" value="2">
+        <input name="stars" id="3" type="radio" value="3">
+        <input name="stars" id="4" type="radio" value="4">
+        <input name="stars" id="5" type="radio" value="5">
+        <br>
+        <br>
+        <input id="tekst" type="text" autocomplete="off">
+        <br>
+        <br>
+        <button type="submit" id="submit">Send inn anmeldelse</button>
+
+    </form>
+
+
+
+
+
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+            https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-firestore.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        var firebaseConfig = {
+            apiKey: "AIzaSyCfbbkDg-Nti1vXg2JBEfQjoMlwMJWhJwQ",
+            authDomain: "yff-database-2.firebaseapp.com",
+            projectId: "yff-database-2",
+            storageBucket: "yff-database-2.appspot.com",
+            messagingSenderId: "513929686012",
+            appId: "1:513929686012:web:fbb88a2a7ffab7e4fee079",
+            measurementId: "G-N63SX1EYC3"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+        let db = firebase.firestore();
+
+    </script>
+    <script>
+
+        function myFunction() {
+            document.getElementById("demo").innerHTML = "Du har nå fjernet all informasjonen din";
+            document.querySelector("#demo").style.color = "blue"
+            document.getElementById('e-post').value = ''
+            document.getElementById('lname').value = ''
+            document.getElementById('fname').value = ''
+            document.getElementById('tlf').value = ''
+            document.getElementById('antall').value = ''
+            document.getElementById('betaling').value = ''
+            document.getElementById("myTable").deleteRow(1);
+        }
+        // det over funker 
+
+        function KjøpBilletter() {
+            if (document.getElementById("antall").value == "") { document.getElementById("feilmelding_antall").innerHTML = "Du må skrive noe her", document.querySelector("#feilmelding_antall").style.color = "red" }
+            if (document.getElementById("fname").value == "") { document.getElementById("feilmelding_fornavn").innerHTML = "Du må skrive noe her", document.querySelector("#feilmelding_etternavn").style.color = "red" }
+            if (document.getElementById("lname").value == "") { document.getElementById("feilmelding_etternavn").innerHTML = "Du må skrive noe her", document.querySelector("#feilmelding_tlf").style.color = "red" }
+            if (document.getElementById("tlf").value == "") { document.getElementById("feilmelding_tlf").innerHTML = "Du må skrive noe her", document.querySelector("#feilmelding_e_post").style.color = "red" }
+            if (document.getElementById("e-post").value == "") { document.getElementById("feilmelding_e_post").innerHTML = "Du må skrive noe her", document.querySelector("#feilmelding_fornavn").style.color = "red" }
+
+
+
+            else {
+                // document.getElementById("demo1").innerHTML = "Her er biletten din"
+                // document.querySelector("#demo1").style.color = "white"
+                var table = document.getElementById("myTable");
+                var row = table.insertRow(1);
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+                var cell4 = row.insertCell(3);
+                var cell5 = row.insertCell(4);
+                var cell6 = row.insertCell(5);
+
+                cell1.innerHTML = document.getElementById("betaling").value;
+                cell2.innerHTML = document.getElementById("antall").value;
+                cell3.innerHTML = document.getElementById("fname").value;
+                cell4.innerHTML = document.getElementById("lname").value;
+                cell5.innerHTML = document.getElementById("tlf").value;
+                cell6.innerHTML = document.getElementById("e-post").value;
+
+            }
+        }
+
+
+    </script>
+
+
+
+
+
+    <!--ignorer det som er under takk-->
+
+
+
+
+    <script>
+        let form = document.getElementById("form");
+        let tekst = document.getElementById("tekst");
+        let submit = document.getElementById("submit");
+        let selectedButton;
+
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+
+            document.getElementsByName("stars").forEach(function (noe) {
+                if (noe.checked) {
+                    selectedButton = noe.value
+                };
+            })
+            let docDataReview = {
+                tekst: tekst.value,
+                rating: selectedButton
+            };
+            db.collection("rew").doc().set(docDataReview).then(() => {
+                console.log("document succesfully written!");
+                window.location.reload();
+            }).catch(err => console.log(err));
+        });
+
+        function hentData(doc) {
+            let html = document.createElement('li');
+            html.innerHTML += "Tilbakemelding: " + doc.data().tekst + ", Rating: " + doc.data().rating + "/ 5";
+            JSON.stringify(html);
+            let list = document.getElementById("liste");
+            list.appendChild(html);
+
+        }
+
+        db.collection("rew").get().then(snapshot => {
+            snapshot.docs.forEach(doc => {
+                hentData(doc)
+            });
+        }).catch(err => {
+            console.log(err);
+        })
+    </script>
+
+
+    <ul id="liste"></ul>
+
+
+</body>
+
+</html>
